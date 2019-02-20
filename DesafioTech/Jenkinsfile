@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    stages {
+        stage('mkdir') {
+            steps {
+                sh 'sudo mkdir /var/www/html/wp-content/themes/twentyfifteen_tmp'
+                }
+
+
+        }
+        stage('rsync'){
+            steps {
+                sh 'sudo rsync /home/DesafioTech/twentyfifteen /var/www/html/wp-content/themes/twentyfifteen_tmp'
+                }
+
+
+        }
+        stage('twentyfifteen_old') {
+            steps {
+                sh 'sudo mv /home/DesafioTech/twentyfifteen /var/www/html/wp-content/themes/twentyfifteen_old'
+            }
+
+
+        }
+        stage('twentyfifteen') {
+            steps {
+                sh 'sudo mv /var/www/html/wp-content/themes/twentyfifteen_tmp /var/www/html/wp-content/themes/twentyfiteen'
+
+
+            }
+        }
+    }
+}
